@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <queue>
+
 
 class Reader;
 class Writer;
@@ -17,6 +19,11 @@ public:
   const Reader& reader() const;
   Writer& writer();
   const Writer& writer() const;
+
+  std::deque<char> buffer_ {};
+  bool is_closed_ { false };
+  uint64_t bytes_popped_ { 0 };
+  uint64_t bytes_pushed_ { 0 };
 
   void set_error() { error_ = true; };       // Signal that the stream suffered an error.
   bool has_error() const { return error_; }; // Has the stream had an error?
