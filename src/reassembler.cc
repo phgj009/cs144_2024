@@ -35,7 +35,7 @@ void Reassembler::insert(uint64_t first_index, string data,
   if (first_index < first_unassembled_index)
   {
     if (first_index + data.size() <= first_unassembled_index)
-    {
+    { 
       return;
     }
     uint64_t overlap = first_unassembled_index - first_index;
@@ -55,14 +55,6 @@ void Reassembler::insert(uint64_t first_index, string data,
   if (first_index > first_unassembled_index)
   {
     auto it = buffer_.lower_bound(first_index);
-
-    // if (it != buffer_.end() && it->first == first_index) {
-    //   if (it->second.size() >= data.size()) {
-    //     return; // new data fully redundant; don't overwrite existing
-    //   }
-    //   buffer_.erase(it);              // new data is longer; replace existing
-    //   it = buffer_.lower_bound(first_index);
-    // }
 
     // trim left
     if (it != buffer_.begin())
@@ -96,8 +88,7 @@ void Reassembler::insert(uint64_t first_index, string data,
         break;
       }
     }
-    if (data.empty())
-    {
+    if (data.empty()) // fix: testcase-insert("op" @ 14) 
       return;
     }
     buffer_[first_index] = data;
