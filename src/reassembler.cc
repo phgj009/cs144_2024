@@ -96,6 +96,10 @@ void Reassembler::insert(uint64_t first_index, string data,
         break;
       }
     }
+    if (data.empty())
+    {
+      return;
+    }
     buffer_[first_index] = data;
   }
   else if (first_index == first_unassembled_index)
